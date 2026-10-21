@@ -35,7 +35,7 @@ Open `index.html` in any text editor.
 
 - Each screen is a `<section class="h-panel" id="...">` inside
   `<div class="h-track">`. The panels in order are: index (with the about
-  text), projects, resume, writing (with the three pictures), contact.
+  text), projects, biodata, writing, connect.
   Each piece of writing is its own page in `blog/` — the Writing panel
   links out to them.
 - The top nav links jump to each panel by id.
