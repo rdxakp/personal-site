@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arnab Kumar Pal — Qualia</title>
 <meta name="description" content="Arnab Kumar Pal — photographs, projects, writing and resume.">
-<script>document.documentElement.classList.add("js")</script>
+<script>document.documentElement.classList.add("js");try{var m=localStorage.getItem("qualia-theme");if(m==="light"||m==="dark")document.documentElement.setAttribute("data-theme",m);}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
@@ -19,9 +19,9 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 :root {
-  --bg:          #fcf4cd;
-  --bg-tint:     #f4e8ad;
-  --surface:     #fffdf1;
+  --bg:          #ffffff;
+  --bg-tint:     #f4f4f2;
+  --surface:     #f7f7f6;
   --ink:         #16130e;
   --ink-2:       #4b4439;
   --ink-3:       #8c8375;
@@ -56,6 +56,63 @@
   }
 }
 
+
+/* =========================================================
+   Colour theme — Auto (system) / Light / Dark
+   data-theme is set on <html> by the header controls.
+   ========================================================= */
+:root[data-theme="light"] {
+  --bg:          #ffffff;
+  --bg-tint:     #f4f4f2;
+  --surface:     #f7f7f6;
+  --ink:         #16130e;
+  --ink-2:       #4b4439;
+  --ink-3:       #8c8375;
+  --line:        rgba(22, 19, 14, 0.14);
+  --line-2:      rgba(22, 19, 14, 0.30);
+  --accent:      #14306e;
+  --accent-dim:  rgba(20, 48, 110, 0.12);
+  --accent-ink:  #f2f5ff;
+}
+:root[data-theme="dark"] {
+  --bg:         #12100d;
+  --bg-tint:    #191612;
+  --surface:    #1b1813;
+  --ink:        #f4efe6;
+  --ink-2:      #c3bbad;
+  --ink-3:      #857d70;
+  --line:       rgba(244, 239, 230, 0.14);
+  --line-2:     rgba(244, 239, 230, 0.30);
+  --accent:     #f2cf4a;
+  --accent-dim: rgba(242, 207, 74, 0.16);
+  --accent-ink: #1a1607;
+}
+:root[data-theme="light"] body { background-image: none; }
+:root[data-theme="dark"] body {
+  background-image: radial-gradient(circle at 1px 1px, rgba(244,239,230,0.045) 1px, transparent 0);
+}
+
+/* =========================================================
+   Accessibility controls — colour theme + read aloud
+   ========================================================= */
+.a11y { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+.a11y__btn {
+  font-family: var(--f-mono); font-size: 0.78rem; text-transform: uppercase;
+  letter-spacing: 0.06em; line-height: 1; background: none;
+  border: 1px solid var(--line-2); color: var(--ink-2); border-radius: 999px;
+  padding: 8px 13px; cursor: pointer; white-space: nowrap;
+  transition: border-color .16s ease, color .16s ease, background .16s ease;
+}
+.a11y__btn:hover { border-color: var(--accent); color: var(--accent); }
+.a11y__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.a11y__btn[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.a11y__btn[hidden] { display: none; }
+.a11y__btn .ic { font-size: 0.95rem; }
+@media (max-width: 780px) {
+  .a11y__btn { padding: 7px 10px; }
+  .a11y__btn .lbl { display: none; }
+}
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -67,10 +124,6 @@ body {
   line-height: 1.72;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* faint paper grain */
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(22,19,14,0.035) 1px, transparent 0);
-  background-size: 22px 22px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -458,9 +511,9 @@ body.h-page { height: 100dvh; overflow: hidden; }
 .h-bg::after {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(90deg,
-    color-mix(in srgb, var(--bg) 90%, transparent) 0%,
-    color-mix(in srgb, var(--bg) 78%, transparent) 55%,
-    color-mix(in srgb, var(--bg) 66%, transparent) 100%);
+    color-mix(in srgb, var(--bg) 95%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 88%, transparent) 55%,
+    color-mix(in srgb, var(--bg) 80%, transparent) 100%);
 }
 
 /* ---------- top bar ---------- */
@@ -604,7 +657,7 @@ body.h-page.is-vertical .h-controls { display: none; }
   :root { --top: 96px; --bottom: 56px; }
   .h-top { height: var(--top); flex-wrap: wrap; align-content: center; row-gap: 2px; padding: 8px 16px; }
   .h-brand { font-size: 1.1rem; gap: 8px; }
-  .h-toggle { margin-left: auto; font-size: 0.72rem; padding: 6px 12px; }
+  .a11y { margin-left: auto; gap: 6px; }
   .h-nav { order: 3; width: 100%; margin-left: 0; gap: 14px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
   .h-nav::-webkit-scrollbar { display: none; }
   .h-nav a { font-size: 0.8rem; letter-spacing: 0.05em; }
@@ -642,7 +695,12 @@ body.h-page.is-vertical .h-controls { display: none; }
       <a href="#" data-go="#p-writing"><b>M3.</b> Writing</a>
       <a href="#" data-go="#p-contact"><b>M4.</b> Connect</a>
     </nav>
-    <button class="h-toggle" id="vtoggle" aria-pressed="false">↕ Vertical</button>
+    <div class="a11y" role="group" aria-label="Accessibility">
+      <button class="a11y__btn" id="theme" type="button" aria-label="Colour theme"><span class="ic">&#9680;</span> <span class="lbl">Auto</span></button>
+      <button class="a11y__btn" id="read" type="button" aria-pressed="false" aria-label="Read this section aloud"><span class="ic">&#9654;</span> <span class="lbl">Read</span></button>
+      <button class="a11y__btn" id="rate" type="button" aria-label="Reading speed"><span class="val">1&#215;</span></button>
+      <button class="a11y__btn" id="vtoggle" type="button" aria-pressed="false" aria-label="Switch to a vertical layout"><span class="ic">&#8597;</span> <span class="lbl">Vertical</span></button>
+    </div>
   </header>
 
   <main class="h-main">
@@ -971,6 +1029,101 @@ body.h-page.is-vertical .h-controls { display: none; }
   }
   window.addEventListener("load", go);
   window.addEventListener("hashchange", go);
+})();
+
+</script>
+<script>
+
+/* =========================================================
+   Accessibility controls — colour theme + read aloud
+   ========================================================= */
+(function () {
+  var root = document.documentElement;
+  var THEMES = ["auto", "light", "dark"];
+  var ICON  = { auto: "\u25D0", light: "\u2600", dark: "\u263E" };
+  var LABEL = { auto: "Auto", light: "Light", dark: "Dark" };
+  var themeBtn = document.getElementById("theme");
+  var readBtn  = document.getElementById("read");
+  var rateBtn  = document.getElementById("rate");
+  var RATES = [0.8, 1, 1.2, 1.5];
+  var rate = 1, speaking = false;
+
+  function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+  function apply(mode) {
+    if (mode === "auto") root.removeAttribute("data-theme");
+    else root.setAttribute("data-theme", mode);
+    set("qualia-theme", mode);
+    if (themeBtn) {
+      themeBtn.querySelector(".ic").textContent = ICON[mode];
+      themeBtn.querySelector(".lbl").textContent = LABEL[mode];
+      themeBtn.setAttribute("aria-label", "Colour theme: " + LABEL[mode] + " — click to change");
+    }
+  }
+  var mode = get("qualia-theme");
+  if (THEMES.indexOf(mode) < 0) mode = "auto";
+  apply(mode);
+  if (themeBtn) themeBtn.addEventListener("click", function () {
+    mode = THEMES[(THEMES.indexOf(mode) + 1) % THEMES.length];
+    apply(mode);
+  });
+
+  /* ---------- read aloud ---------- */
+  var synth = window.speechSynthesis;
+  function target() {
+    var track = document.getElementById("track");
+    if (track) {
+      var left = track.scrollLeft, best = null, bestD = Infinity;
+      Array.prototype.forEach.call(track.children, function (el) {
+        var d = Math.abs(el.offsetLeft - left);
+        if (d < bestD) { bestD = d; best = el; }
+      });
+      if (best) return best;
+    }
+    return document.querySelector("article") || document.querySelector("main") || document.body;
+  }
+  function stop() {
+    if (synth) synth.cancel();
+    speaking = false;
+    if (readBtn) {
+      readBtn.setAttribute("aria-pressed", "false");
+      readBtn.querySelector(".ic").textContent = "\u25B6";
+    }
+  }
+  function speak() {
+    if (!synth) return;
+    var el = target();
+    var text = (el.innerText || "").replace(/\s+/g, " ").trim();
+    if (!text) return;
+    synth.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.rate = rate;
+    u.lang = root.lang || "en";
+    u.onend = stop;
+    u.onerror = stop;
+    synth.speak(u);
+    speaking = true;
+    readBtn.setAttribute("aria-pressed", "true");
+    readBtn.querySelector(".ic").textContent = "\u25A0";
+    readBtn.setAttribute("aria-label", "Stop reading aloud");
+  }
+  if (!synth || !window.SpeechSynthesisUtterance) {
+    if (readBtn) readBtn.hidden = true;
+    if (rateBtn) rateBtn.hidden = true;
+  } else {
+    if (readBtn) readBtn.addEventListener("click", function () {
+      if (speaking) { stop(); readBtn.setAttribute("aria-label", "Read this section aloud"); }
+      else speak();
+    });
+    if (rateBtn) rateBtn.addEventListener("click", function () {
+      rate = RATES[(RATES.indexOf(rate) + 1) % RATES.length];
+      rateBtn.querySelector(".val").textContent = rate + "\u00D7";
+      rateBtn.setAttribute("aria-label", "Reading speed " + rate + " times. Click to change.");
+      if (speaking) speak();
+    });
+    window.addEventListener("beforeunload", stop);
+  }
 })();
 
 </script>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>document.documentElement.classList.add("js")</script>
+  <script>document.documentElement.classList.add("js");try{var m=localStorage.getItem("qualia-theme");if(m==="light"||m==="dark")document.documentElement.setAttribute("data-theme",m);}catch(e){}</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to my corner of the internet — Arnab Kumar Pal</title>
@@ -19,9 +19,9 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 :root {
-  --bg:          #fcf4cd;
-  --bg-tint:     #f4e8ad;
-  --surface:     #fffdf1;
+  --bg:          #ffffff;
+  --bg-tint:     #f4f4f2;
+  --surface:     #f7f7f6;
   --ink:         #16130e;
   --ink-2:       #4b4439;
   --ink-3:       #8c8375;
@@ -56,6 +56,63 @@
   }
 }
 
+
+/* =========================================================
+   Colour theme — Auto (system) / Light / Dark
+   data-theme is set on <html> by the header controls.
+   ========================================================= */
+:root[data-theme="light"] {
+  --bg:          #ffffff;
+  --bg-tint:     #f4f4f2;
+  --surface:     #f7f7f6;
+  --ink:         #16130e;
+  --ink-2:       #4b4439;
+  --ink-3:       #8c8375;
+  --line:        rgba(22, 19, 14, 0.14);
+  --line-2:      rgba(22, 19, 14, 0.30);
+  --accent:      #14306e;
+  --accent-dim:  rgba(20, 48, 110, 0.12);
+  --accent-ink:  #f2f5ff;
+}
+:root[data-theme="dark"] {
+  --bg:         #12100d;
+  --bg-tint:    #191612;
+  --surface:    #1b1813;
+  --ink:        #f4efe6;
+  --ink-2:      #c3bbad;
+  --ink-3:      #857d70;
+  --line:       rgba(244, 239, 230, 0.14);
+  --line-2:     rgba(244, 239, 230, 0.30);
+  --accent:     #f2cf4a;
+  --accent-dim: rgba(242, 207, 74, 0.16);
+  --accent-ink: #1a1607;
+}
+:root[data-theme="light"] body { background-image: none; }
+:root[data-theme="dark"] body {
+  background-image: radial-gradient(circle at 1px 1px, rgba(244,239,230,0.045) 1px, transparent 0);
+}
+
+/* =========================================================
+   Accessibility controls — colour theme + read aloud
+   ========================================================= */
+.a11y { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+.a11y__btn {
+  font-family: var(--f-mono); font-size: 0.78rem; text-transform: uppercase;
+  letter-spacing: 0.06em; line-height: 1; background: none;
+  border: 1px solid var(--line-2); color: var(--ink-2); border-radius: 999px;
+  padding: 8px 13px; cursor: pointer; white-space: nowrap;
+  transition: border-color .16s ease, color .16s ease, background .16s ease;
+}
+.a11y__btn:hover { border-color: var(--accent); color: var(--accent); }
+.a11y__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.a11y__btn[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.a11y__btn[hidden] { display: none; }
+.a11y__btn .ic { font-size: 0.95rem; }
+@media (max-width: 780px) {
+  .a11y__btn { padding: 7px 10px; }
+  .a11y__btn .lbl { display: none; }
+}
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -67,10 +124,6 @@ body {
   line-height: 1.72;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* faint paper grain */
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(22,19,14,0.035) 1px, transparent 0);
-  background-size: 22px 22px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -447,6 +500,11 @@ main, .site-footer { position: relative; z-index: 1; }
       <nav class="nav" aria-label="Primary">
         <a href="../index.html">← Back home</a>
       </nav>
+      <div class="a11y" role="group" aria-label="Accessibility">
+        <button class="a11y__btn" id="theme" type="button" aria-label="Colour theme"><span class="ic">&#9680;</span> <span class="lbl">Auto</span></button>
+        <button class="a11y__btn" id="read" type="button" aria-pressed="false" aria-label="Read this page aloud"><span class="ic">&#9654;</span> <span class="lbl">Read</span></button>
+        <button class="a11y__btn" id="rate" type="button" aria-label="Reading speed"><span class="val">1&#215;</span></button>
+      </div>
     </div>
   </header>
 
@@ -514,6 +572,127 @@ main, .site-footer { position: relative; z-index: 1; }
     </div>
   </footer>
 
-  <script src="../assets/script.js"></script>
+  <script>
+// Small, dependency-free enhancements.
+
+// 1. Reveal-on-scroll for elements with .reveal
+(function () {
+  var els = document.querySelectorAll(".reveal");
+  if (!els.length) return;
+  if (!("IntersectionObserver" in window) ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    els.forEach(function (el) { el.classList.add("is-in"); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+
+// 2. Current year in the footer
+(function () {
+  var y = document.getElementById("year");
+  if (y) y.textContent = new Date().getFullYear();
+})();
+
+</script>
+<script>
+
+/* =========================================================
+   Accessibility controls — colour theme + read aloud
+   ========================================================= */
+(function () {
+  var root = document.documentElement;
+  var THEMES = ["auto", "light", "dark"];
+  var ICON  = { auto: "\u25D0", light: "\u2600", dark: "\u263E" };
+  var LABEL = { auto: "Auto", light: "Light", dark: "Dark" };
+  var themeBtn = document.getElementById("theme");
+  var readBtn  = document.getElementById("read");
+  var rateBtn  = document.getElementById("rate");
+  var RATES = [0.8, 1, 1.2, 1.5];
+  var rate = 1, speaking = false;
+
+  function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+  function apply(mode) {
+    if (mode === "auto") root.removeAttribute("data-theme");
+    else root.setAttribute("data-theme", mode);
+    set("qualia-theme", mode);
+    if (themeBtn) {
+      themeBtn.querySelector(".ic").textContent = ICON[mode];
+      themeBtn.querySelector(".lbl").textContent = LABEL[mode];
+      themeBtn.setAttribute("aria-label", "Colour theme: " + LABEL[mode] + " — click to change");
+    }
+  }
+  var mode = get("qualia-theme");
+  if (THEMES.indexOf(mode) < 0) mode = "auto";
+  apply(mode);
+  if (themeBtn) themeBtn.addEventListener("click", function () {
+    mode = THEMES[(THEMES.indexOf(mode) + 1) % THEMES.length];
+    apply(mode);
+  });
+
+  /* ---------- read aloud ---------- */
+  var synth = window.speechSynthesis;
+  function target() {
+    var track = document.getElementById("track");
+    if (track) {
+      var left = track.scrollLeft, best = null, bestD = Infinity;
+      Array.prototype.forEach.call(track.children, function (el) {
+        var d = Math.abs(el.offsetLeft - left);
+        if (d < bestD) { bestD = d; best = el; }
+      });
+      if (best) return best;
+    }
+    return document.querySelector("article") || document.querySelector("main") || document.body;
+  }
+  function stop() {
+    if (synth) synth.cancel();
+    speaking = false;
+    if (readBtn) {
+      readBtn.setAttribute("aria-pressed", "false");
+      readBtn.querySelector(".ic").textContent = "\u25B6";
+    }
+  }
+  function speak() {
+    if (!synth) return;
+    var el = target();
+    var text = (el.innerText || "").replace(/\s+/g, " ").trim();
+    if (!text) return;
+    synth.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.rate = rate;
+    u.lang = root.lang || "en";
+    u.onend = stop;
+    u.onerror = stop;
+    synth.speak(u);
+    speaking = true;
+    readBtn.setAttribute("aria-pressed", "true");
+    readBtn.querySelector(".ic").textContent = "\u25A0";
+    readBtn.setAttribute("aria-label", "Stop reading aloud");
+  }
+  if (!synth || !window.SpeechSynthesisUtterance) {
+    if (readBtn) readBtn.hidden = true;
+    if (rateBtn) rateBtn.hidden = true;
+  } else {
+    if (readBtn) readBtn.addEventListener("click", function () {
+      if (speaking) { stop(); readBtn.setAttribute("aria-label", "Read this section aloud"); }
+      else speak();
+    });
+    if (rateBtn) rateBtn.addEventListener("click", function () {
+      rate = RATES[(RATES.indexOf(rate) + 1) % RATES.length];
+      rateBtn.querySelector(".val").textContent = rate + "\u00D7";
+      rateBtn.setAttribute("aria-label", "Reading speed " + rate + " times. Click to change.");
+      if (speaking) speak();
+    });
+    window.addEventListener("beforeunload", stop);
+  }
+})();
+
+</script>
 </body>
 </html>
