@@ -458,7 +458,7 @@ main, .site-footer { position: relative; z-index: 1; }
           <h1 class="page-head__title" style="font-size: clamp(2rem,5.5vw,3.6rem); margin-top:22px;">State of the art, out of reach</h1>
           <div class="post-meta">
             <span>22 Oct 2026</span>
-            <span>7 min read</span>
+            <span>4 min read</span>
             <span>Access</span>
           </div>
         </div>
@@ -468,133 +468,108 @@ main, .site-footer { position: relative; z-index: 1; }
         <div class="wrap">
           <div class="prose">
             <p>
-              The best generative models are, by almost any measure, extraordinary
-              — and getting cheaper by the month. That part is real. The harder
-              question is who can actually reach them, and right now the answer is
-              not the people who would gain the most.
+              The best generative models are extraordinary — and getting cheaper
+              by the month. The harder question is who can actually reach them.
+              Right now, it isn't the people who would gain the most.
             </p>
 
             <h2>What state of the art costs</h2>
             <p>
-              Start with the price curve, because it has moved fastest. The four
-              strongest models in the world are closed; the next four are
+              The four strongest models in the world are closed; the next four are
               open-weight, downloadable by anyone. The best open model trails the
               closed leader by a few index points — roughly four months of progress
-              — at around 30% of the input price. On identical work the gap widens
-              further: closed models cost about six times more to run, and
-              reallocating the same workload can cut spend by more than 70%.
+              — at around 30% of the input price. Closed models cost about six
+              times more to run, and switching the same workload can cut spend by
+              over 70%.
             </p>
             <p>
-              At the cheap end the numbers stop being abstract. A small open model
-              can answer for about $0.14 per million input tokens; the top closed
-              model lists at $10. That is a spread of roughly seventy times on the
-              same job. Open weights are the hedge against the meter — and for
-              anyone building for people with no budget at all, the meter is the
-              whole problem.
+              At the cheap end it stops being abstract. A small open model answers
+              for about $0.14 per million input tokens; the top closed model lists
+              at $10. Open weights are the hedge against the meter — and for anyone
+              building for people with no budget at all, the meter is the whole
+              problem.
             </p>
 
             <h2>Who is actually excluded</h2>
             <p>
-              Cheap still isn't free, and free still isn't reachable. Around 2.9
-              billion people are offline, and 96% of them live in low- and
-              middle-income countries. In high-income countries roughly 94% of
-              people use the internet; in low-income countries, about 23%. Africa
-              holds 18% of the world's population and less than 1% of global data
-              centre capacity.
+              Cheap isn't free, and free isn't reachable. Around 2.9 billion people
+              are offline, and 96% of them live in low- and middle-income
+              countries. In high-income countries about 94% of people use the
+              internet; in low-income countries, about 23%. Africa holds 18% of the
+              world's population and under 1% of global data centre capacity.
             </p>
             <p>
-              Then there is language. Of roughly 7,000 languages, only about 1,500
-              have enough digital material to build on, and around 0.02% of
-              internet content is in African languages. Models that work well for
-              the 1.5 billion English speakers degrade sharply for everyone else —
-              and where they do function, they can cost up to five times more than
-              English, run slower, and resist safety testing.
+              Then language. Of roughly 7,000 languages, only about 1,500 have
+              enough digital material to build on. Models that work for the 1.5
+              billion English speakers degrade sharply for everyone else — and
+              where they do function, they can cost up to five times more, run
+              slower, and resist safety testing.
             </p>
             <p>
-              And the constraints stack. A shared phone, intermittent power,
+              And the constraints stack: a shared phone, intermittent power,
               prepaid data, low literacy, no laptop. A frontier model behind a
-              credit card is not a tool for that person. It is a rumour.
+              credit card isn't a tool for that person. It's a rumour.
             </p>
 
-            <h2>Why it isn't only a pricing problem</h2>
+            <h2>Why it isn't only pricing</h2>
             <p>
-              You can drop the price of inference to zero and still not reach
-              someone with no connection, no electricity and no device. The gap is
-              a stack — connectivity, power, devices, language, skills, money —
-              and each layer can exclude on its own. That is also why "the
-              technology will keep improving" is not an answer. Capability stopped
-              being the barrier a while ago. What remains is investment and intent.
+              Drop the price of inference to zero and you still don't reach someone
+              with no connection, no electricity and no device. The gap is a stack
+              — connectivity, power, devices, language, skills, money — and each
+              layer can exclude on its own. Capability stopped being the barrier a
+              while ago; what remains is investment and intent.
             </p>
             <p>
-              There is a quieter problem underneath. If the data of the poorest is
-              collected, shipped out and turned into products sold back to them,
-              then access without ownership is just a new dependency. Who owns the
-              language data, and who decides what it trains, matters as much as
-              whether the model works.
+              There's a quieter problem too. If the data of the poorest is
+              collected, shipped out and sold back to them, then access without
+              ownership is just a new dependency.
             </p>
 
             <h2>How might we bridge the gap</h2>
-            <p>No single lever closes this. But a handful of them compound.</p>
             <p>
-              <strong>Treat open weights as public infrastructure.</strong> A
-              downloadable model is a public good in a way an API is not — it runs
-              at the cost of electricity, it can be adapted locally, and no pricing
-              decision can switch it off. Four of the world's ten strongest models
-              being open is what makes this realistic rather than aspirational.
+              <strong>Open weights as public infrastructure.</strong> A
+              downloadable model runs at the cost of electricity, adapts locally,
+              and no pricing decision can switch it off.
             </p>
             <p>
-              <strong>Go small, and on-device.</strong> Models under a billion
-              parameters account for 83% of all downloads, because they are the
-              only ones that run on hardware people actually own. Lightweight
-              translation models now run entirely on-device, with no cloud round
-              trip. Where connectivity is intermittent, that is the difference
-              between a tool and a demo.
+              <strong>Small and on-device.</strong> Models under a billion
+              parameters take 83% of all downloads, because they're the only ones
+              that run on hardware people actually own. Lightweight translation
+              models now run fully on-device, with no cloud round trip.
             </p>
             <p>
-              <strong>Design voice-first, for the cheapest phone.</strong> Where
-              typing and literacy are barriers, speech is not. Voice assistants
-              running on ordinary feature phones have already answered millions of
-              questions in pilot programmes. If a tool needs a smartphone and a
-              keyboard, it has excluded most of the people it claims to serve
-              before it starts.
+              <strong>Voice-first, for the cheapest phone.</strong> Where typing
+              and literacy are barriers, speech isn't. Voice assistants running on
+              ordinary feature phones have already answered millions of questions
+              in pilot programmes.
             </p>
             <p>
-              <strong>Make language data a commons, governed locally.</strong>
-              This work is already underway: community-run voice collection, open
-              licences that let communities set the terms, corpora built with local
-              universities and speakers. It is slower than scraping — and it is the
-              only version that doesn't become extraction.
+              <strong>Language data as a locally-governed commons.</strong>
+              Community-run voice collection, open licences that let communities
+              set the terms, corpora built with local universities. Slower than
+              scraping — and the only version that isn't extraction.
             </p>
             <p>
-              <strong>Measure in-language.</strong> You cannot make a system safe
-              in a language you cannot test it in. Benchmarks and safety
-              evaluations for low-resource languages are not a luxury; they are the
-              precondition for using these tools anywhere accuracy matters — health,
-              law, public services.
+              <strong>Measure in-language.</strong> You can't make a system safe in
+              a language you can't test it in. Benchmarks and safety evaluations
+              for low-resource languages are the precondition for using these tools
+              in health, law and public services.
             </p>
             <p>
               <strong>Fund the last mile.</strong> Connectivity, power and cheap
-              devices are the unglamorous part and the biggest one. Closing the
-              digital divide by 2030 is estimated in the trillions, and the return
-              is larger still, with the large majority of the benefit landing in
-              developing countries. No amount of model progress substitutes for a
-              signal and a charged battery.
+              devices are the unglamorous part and the biggest. Closing the digital
+              divide by 2030 is estimated in the trillions, with the large majority
+              of the benefit landing in developing countries. No model progress
+              substitutes for a signal and a charged battery.
             </p>
 
             <h2>What I take from it</h2>
             <p>
               The frontier is racing toward capability. Almost nobody is racing
-              toward the floor. The two questions sound similar and are not: one
-              asks how smart the best model is, the other asks how many people can
-              use a good-enough one. The second decides whether any of this reaches
-              the poorest billion — and it is mostly an engineering and governance
-              problem, not a research one.
-            </p>
-            <p>
-              The pieces exist: open weights, small models, on-device translation,
-              voice-first interfaces, and a growing coalition treating language as
-              shared infrastructure. None of it needs a breakthrough. It needs the
-              decision that the last mile is worth the walk.
+              toward the floor. One question asks how smart the best model is; the
+              other asks how many people can use a good-enough one. The second
+              decides whether any of this reaches the poorest billion — and it's
+              mostly an engineering and governance problem, not a research one.
             </p>
 
             <p>
